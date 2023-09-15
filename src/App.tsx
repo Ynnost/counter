@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import CounterNum from "./CounterNum";
+
 
 function App() {
+
+  let [number, setNumber]=useState<number>(0)
+
+  const counter = (n:number) => {
+      if(n < 5) {++n
+          setNumber(n)}
+      return
+  }
+
+  const reset = (n:number)=>{
+      setNumber(0)
+  }
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+            <CounterNum num={number} reached={number === 5} counter={counter} reset={reset}/>
     </div>
   );
 }
