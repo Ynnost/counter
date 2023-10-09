@@ -13,9 +13,8 @@ function App() {
       return
   }
 
-  const reset = (n:number)=>{
-      setNumber(0)
-  }
+  const reset = ()=>setNumber(0);
+  
 
 
 

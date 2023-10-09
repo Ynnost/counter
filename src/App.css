@@ -1,4 +1,4 @@
-.App {
+/* .App {
   position: absolute;
   top:  50%;
   left: 50%;
@@ -48,17 +48,63 @@
   height: 100px;
   border: 5px solid cyan;
   margin-bottom: auto;
+} */
+
+.App {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .buttons {
   background: cyan;
-  width: 150px;
+  width: 80px;
   height: 30px;
-  text-decoration: none;
-  padding-top: 9px;
+  font-family: "Arial", "Verdana", sans-serif;
+  font-size: 130%;
+}
+
+.container {
+  width: 250px;
+  height: 200px;
+  margin: 200px;
+  border: 3px solid cyan;
+  border-radius: 5px;
+  /* FLex */
+  display: flex;
   text-align: center;
-  line-height: 20px;
-  display: block;
-  margin: 20px auto;
-  font: normal 17px arial;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.item1 {
+  width: 240px;
+  height: 90px;
+  background: cyan;
+}
+
+.p {
+  line-height: 0px;
+  font-family: "Arial", "Verdana", sans-serif;
+  font-size: 300%;
+}
+
+.p--red {
+   line-height: 0px;
+  font-family: "Arial", "Verdana", sans-serif;
+  font-size: 300%;
+  color:red
+}
+
+.item2 {
+  width: 240px;
+  height: 60px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  border: 2px solid cadetblue;
+  border-radius: 2px;
 }
