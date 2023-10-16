@@ -6,20 +6,24 @@ export type Number = {
   reached: boolean;
   counter: (num: number) => void;
   reset: (num: number) => void;
+  inputValue: string;
 };
 
 const CounterNum = (props: Number) => {
+  const inputValueHandler = () => {
+    if (+props.inputValue < 0) {
+      return "Incorrect value";
+    }
+    if (props.inputValue) {
+      return 'Enter value and press "Set"';
+    }
+    return props.num.toString();
+  };
 
-
-//  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//    setInputValue(e.target.value);
-//  };
-
-  
   return (
     <div className="container">
       <div className={"item1"}>
-        <p className={props.reached ? 'p--red' : 'p'}>{props.num}</p>
+        <p className={props.reached ? "p--red" : "p"}>{inputValueHandler()}</p>
       </div>
 
       <div className={"item2"}>
@@ -30,7 +34,7 @@ const CounterNum = (props: Number) => {
         />
         <Button
           name={"Reset"}
-          reached={props.reached}
+          reached={!props.reached || +props.inputValue < 0}
           callback={() => props.reset(+props.num)}
         />
       </div>

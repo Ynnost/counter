@@ -14,7 +14,7 @@ const Button = (props:ButtonType) => {
 
     return (
         <div>
-            <button className={'buttons'} disabled={props.name === 'Reset' ? !props.reached : props.reached} onClick={onClickHandler}>{props.name}</button>
+            <button className={'buttons'} disabled={props.reached} onClick={onClickHandler}>{props.name}</button>
         </div>
     );
 };

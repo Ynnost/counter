@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import "./App.css";
 import CounterNum from "./CounterNum";
 import { ChangingCounter } from "./ChangingCounter";
@@ -8,12 +8,19 @@ export type CountType = {
   minCount: number;
 };
 
-function App() {
 
-  let [newCount, setNewCount] = useState<CountType>({
-    maxCount: 5,
-    minCount: 0,
+function App() {
+  let [newCount, setNewCount] = useState<CountType>(() => {
+    const savedData = localStorage.getItem("newCount");
+    return savedData ? JSON.parse(savedData) : { maxCount: 5, minCount: 0 };
   });
+
+  const [inputValue, setInputValue] = useState("");
+
+
+  useEffect(() => {
+    localStorage.setItem("newCount", JSON.stringify(newCount));
+  }, [newCount]); // добавляем newCount в массив зависимостей
 
   let [number, setNumber] = useState<number>(newCount.minCount);
 
@@ -33,13 +40,13 @@ function App() {
   };
 
   const updateMinCounter = (newMinCount: number) => {
-      newCount = { ...newCount, minCount: newMinCount };
-      setNewCount(newCount);
+    newCount = { ...newCount, minCount: newMinCount };
+    setNewCount(newCount);
   };
 
   const addNewNumber = (newNumberCount: CountType) => {
-    newCount = { ...newCount};
-    newCount = newNumberCount
+    newCount = { ...newCount };
+    newCount = newNumberCount;
     setNewCount(newCount);
     setNumber(newCount.minCount);
   };
@@ -47,6 +54,7 @@ function App() {
   return (
     <div className="App">
       <ChangingCounter
+        setInputValue={setInputValue}
         oldNumberMax={newCount.maxCount}
         oldNumberMin={newCount.minCount}
         onChangeMax={updateMaxCounter}
@@ -55,9 +63,10 @@ function App() {
       />
       <CounterNum
         num={number}
-        reached={number === newCount.maxCount}
+        reached={number === newCount.maxCount || +inputValue < 0}
         counter={counter}
         reset={reset}
+        inputValue={inputValue}
       />
     </div>
   );
