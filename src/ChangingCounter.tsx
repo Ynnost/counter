@@ -1,57 +1,32 @@
 import { type } from "os";
 import Button from "./Button";
 import { ChangeEvent, useState } from "react";
-import { newCountType } from "./App";
-
-
+import { CountType } from "./App";
 
 type ChangingCounterType = {
   oldNumberMax: number;
   oldNumberMin: number;
-
   onChangeMax: (oldNumberMax: number) => void;
   onChangeMin: (oldNumberMin: number) => void;
-  collback: (newNumber: newCountType[]) => void;
+  collback: (newNumber: CountType) => void;
 };
 
 export const ChangingCounter = (props: ChangingCounterType) => {
- 
+   
+  let [newCount, setNewCount] = useState({
+    maxCount: props.oldNumberMax,
+    minCount: props.oldNumberMin,
+  });
 
-  const [newCount, setNewCount] = useState<newCountType[]>([
-    { value: "MaxCount", number: props.oldNumberMax },
-    { value: "MinCount", number: props.oldNumberMin },
-  ]);
+  const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
+    newCount = {...newCount, maxCount:+e.currentTarget.value};
+    setNewCount(newCount);
+  };
 
- 
-
-//   const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
-//     const newNumber = newCount.filter((el) =>
-//       el.value === "MaxCount" ? el.number === +e.currentTarget.value : el);
-//     setNewCount(newNumber);
-//   };
-
-//   const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
-//     const newNumber = newCount.filter((el) =>
-//       el.value === "MinCount" ? el.number === +e.currentTarget.value : el
-//     );
-//     setNewCount(newNumber);
-//   };
-
-
-
-const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
-  const newNumber = [...newCount]
-  newNumber[0].number = +e.currentTarget.value;
-  setNewCount(newNumber);
-};
-
-const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
- const newNumber = [...newCount];
- newNumber[1].number = +e.currentTarget.value;
- setNewCount(newNumber);
-};
-
-
+  const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
+    newCount = { ...newCount, minCount: +e.currentTarget.value };
+    setNewCount(newCount);
+  };
 
   const addNewCountNumber = () => {
     props.collback(newCount);
@@ -60,23 +35,27 @@ const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
   return (
     <div className="container">
       <div>
-        <label>Max Value: </label>
+        <label className="label">Max Value: </label>
         <input
+          className="input"
           type="number"
-          value={newCount[0].number}
+          value={newCount.maxCount}
           onChange={onChangeMax}
         />
       </div>
       <div>
-        <label>Min Value: </label>
+        <label className="label">Min Value: </label>
         <input
+          className="input"
           type="number"
-          value={newCount[1].number}
+          value={newCount.minCount}
           onChange={onChangeMin}
         />
       </div>
       <div className={"item2"}>
-        <button onClick={addNewCountNumber}>Set</button>
+        <button className="buttons" onClick={addNewCountNumber}>
+          Set
+        </button>
       </div>
     </div>
   );

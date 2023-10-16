@@ -9,6 +9,13 @@ export type Number = {
 };
 
 const CounterNum = (props: Number) => {
+
+
+//  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//    setInputValue(e.target.value);
+//  };
+
+  
   return (
     <div className="container">
       <div className={"item1"}>
@@ -19,12 +26,12 @@ const CounterNum = (props: Number) => {
         <Button
           name={"inc"}
           reached={props.reached}
-          callback={() => props.counter(props.num)}
+          callback={() => props.counter(+props.num)}
         />
         <Button
           name={"Reset"}
           reached={props.reached}
-          callback={() => props.reset(props.num)}
+          callback={() => props.reset(+props.num)}
         />
       </div>
     </div>
